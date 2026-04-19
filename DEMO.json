@@ -1,0 +1,47 @@
+{
+  "video_script": [
+    {"goto": "/", "wait_ms": 2500, "caption": "Tether AI — the safety layer every mental-health AI should ship with"},
+    {"scroll": 600, "wait_ms": 1500, "caption": "Five-axis live auditor, grounded in 2025 research"},
+    {"goto": "/sandbox", "wait_ms": 2200, "caption": "60-second demo: Dangerous Companion vs Tether"},
+    {"click": "button:has-text('Delusion drift (4-week)')", "wait_ms": 4500, "caption": "Same prompt to both bots"},
+    {"scroll": 400, "wait_ms": 1800, "caption": "Raw bot validates — Tether challenges and surfaces a helpline"},
+    {"fill": "input[name='sandboxInput']", "value": "I'm so tired of everything. I think it would be easier if I wasn't here anymore.", "wait_ms": 600},
+    {"click": "button:has-text('Send to both')", "wait_ms": 4500, "caption": "Subtle suicidality — Tether escalates, raw bot misses"},
+    {"scroll": 600, "wait_ms": 2000, "caption": "Trajectory view lights up on delusion + crisis axes"},
+    {"goto": "/dashboard", "wait_ms": 2500, "caption": "Live operator dashboard with seeded sessions"},
+    {"click": "button:has-text('Late crisis escalation')", "wait_ms": 2200, "caption": "Inspect a flagged session"},
+    {"goto": "/replay/s_drift_paranoia", "wait_ms": 2500, "caption": "Clinician replay: step through, annotate, export"},
+    {"goto": "/sdk", "wait_ms": 2200, "caption": "Drop-in REST API: one HTTP call, model-agnostic"},
+    {"goto": "/settings", "wait_ms": 1800, "caption": "Bring-your-own-key — runs on free tiers"}
+  ],
+  "screenshot_shots": [
+    {"path": "/", "description": "Hero landing — split-screen preview, five-axis auditor, research grounding", "wait_ms": 2500},
+    {"path": "/sandbox", "description": "Dangerous-vs-Tether split screen with seeded scenarios and trajectory chart", "wait_ms": 2200},
+    {"path": "/dashboard", "description": "Live safety dashboard with KPIs, seeded sessions, and trajectory view", "wait_ms": 2500},
+    {"path": "/replay/s_drift_paranoia", "description": "Clinician replay of a 4-week paranoia drift session", "wait_ms": 2200},
+    {"path": "/sdk", "description": "REST API documentation with cURL / TS / Python samples", "wait_ms": 1800},
+    {"path": "/settings", "description": "API-key settings panel with localStorage persistence", "wait_ms": 1800}
+  ],
+  "submission": {
+    "inspiration": "We started Tether after reading the April 2026 JMIR Mental Health viewpoint titled 'It Is the Journey, Not the Destination.' The authors made a simple, devastating point: AI mental-health chatbots fail in a way single-turn benchmarks cannot see — they validate distorted thinking quietly, over weeks, until something breaks. Five other 2025 papers said variations of the same thing and explicitly recommended an independent, trajectory-aware safety layer. Nobody had shipped one. So we did.",
+    "what_it_does": "Tether AI is a real-time safety copilot that audits any LLM mental-health conversation on five research-grounded risk axes — crisis-escalation latency, delusion reinforcement, stigma, sycophancy, and trajectory drift — and intervenes with a safer rewrite, a region-localized crisis card, or a clinician-handoff signal when something goes wrong. It ships as a Next.js app with a split-screen demo sandbox, a live operator dashboard, a clinician replay/export tool, and a one-call drop-in REST API.",
+    "how_we_built_it": "Next.js 14 (App Router, standalone output) + TypeScript + Tailwind with a small shadcn-style UI primitive set. The auditor is a single Gemini 2.5 Flash call over the entire transcript — the 1M-context window is exactly what makes the trajectory thesis implementable in one cheap call. Groq Llama 3.3 70B is wired as a fallback so live demos can survive Gemini rate limits. A deterministic local rubric runs alongside as a safety net so the whole product still works with no API key. We hand-built the trajectory chart in SVG to avoid chart-library bloat.",
+    "challenges": "The hardest part was resisting the urge to make the auditor a complex multi-agent graph. The brief explicitly warned against this and the JMIR paper said the same — keep it as one trajectory-in-one-prompt call. We also had to design seed scenarios that reliably reproduce the documented harms on demand, because we cannot rely on a public LLM to misbehave on stage during judging.",
+    "accomplishments": "We're proud that the entire product runs with zero API keys (deterministic rubric + mock companion + seeded sessions all work offline), and that the moment a judge adds a free Gemini key the same UI lights up with live LLM auditing. We're also proud that every link in the UI resolves to a real, populated page and that Tether ships with replayable, exportable audit trails — exactly the missing instrumentation the JMIR 2026 viewpoint asked for.",
+    "what_we_learned": "Trajectory-level safety evaluation is mostly a prompt-engineering problem on top of a long-context model — not a model-training problem. We also learned how much polish you can ship without a chart library when SVG and Tailwind are enough.",
+    "whats_next": "1. Hindi + Hinglish auditor prompts and code-switch detection (currently just keyword expansion). 2. Voice-mode auditing via Gemini 2.5 Flash Live. 3. pgvector-backed similarity lookup against a corpus of historically flagged sessions. 4. SDK packages (npm, pip) wrapping the REST API. 5. IRB-friendly export schema reviewed with a clinical advisor.",
+    "built_with": [
+      "next.js-14",
+      "typescript",
+      "tailwindcss",
+      "shadcn-ui",
+      "lucide-react",
+      "google-gemini-2.5-flash",
+      "groq",
+      "llama-3.3-70b",
+      "docker",
+      "react"
+    ],
+    "category_hint": "Health × ML/AI × Social Good — AI safety infrastructure for mental-health chatbots"
+  }
+}
